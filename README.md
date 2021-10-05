@@ -50,14 +50,109 @@
 ![물리적모델링](https://user-images.githubusercontent.com/88583689/135763497-6069ae3b-97d1-4c9f-8fb7-2bd6054c6a2a.JPG)
 
 
-# 프로젝트 구현화면
-+ PPT(https://www.slideshare.net/ssuser4d888a/ss-250358914)
+# 프로젝트 구현
++ [PPT](https://www.slideshare.net/ssuser4d888a/ss-250358914)
 + 구현 페이지
-  + 메인페이지
+  + **메인페이지**
   + 로그인
   + 회원가입
   + 펫시터검색
-  + 예약
+  + **예약**
   + 마이페이지 (회원정보관리, 프로필관리, 이력/리뷰관리, 예약관리, 회원탈퇴)
   + 관리자페이지
--------------------------------------
+* * *
+
+**패키지구조**
+
+![패키지명](https://user-images.githubusercontent.com/88583689/135986870-c6e6a9c7-cfed-441a-8644-edbdbd01daeb.png)
+
+**junit Test**
+~~~java
+package com.bitcamp.petcare.home.mapper;
+
+import java.util.List;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.bitcamp.petcare.home.domain.FaqVO;
+import com.bitcamp.petcare.home.domain.ReviewVO;
+
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
+
+
+@Log4j2
+@NoArgsConstructor
+
+@RunWith(SpringJUnit4ClassRunner.class)  
+
+@ContextConfiguration(locations= {
+   "file:src/main/webapp/WEB-INF/spring/root-context.xml"
+})
+public class HomeTests {
+	
+	@Setter(onMethod_ =@Autowired)
+	private HomeMapper mapper;
+	
+	@Before
+	public void setup() {
+		log.debug("setup() invoked.");
+		
+	} //setup
+	
+	
+	@Test
+	public void testGetFaq() {
+		log.debug("testGetFaq() invoked.");
+		
+		List<FaqVO> list = this.mapper.getFaq();
+		
+		assert list != null;
+		
+		list.forEach(log::info);
+		
+		list.clear();
+		list = null;
+	} //testGetFaq
+	
+	
+	@Test
+	public void testGetReview() {
+		log.debug("testGetReview() invoked.");
+		
+		List<ReviewVO> list = this.mapper.getReview();
+		
+		assert list != null;
+		
+		list.forEach(log::info);
+		
+		list.clear();
+		list = null;
+	} //testGetReview
+	
+	
+	@After
+	public void tearDown() {
+		log.debug("tearDown()invoked");
+		
+	} //tearDown
+
+} //end class
+~~~
+
+테스트를 통해 DB의 데이터 정보를 제대로 받는지 확인 후 다음 단계로 넘어갔습니다.
+
+**메인페이지**
+
+![메인](https://user-images.githubusercontent.com/88583689/135981006-e1949a1f-9547-4eb0-a258-3bf8a927c62e.JPG)
+
+**예약페이지**
+
+![예약](https://user-images.githubusercontent.com/88583689/135996084-c615d24e-3ae0-43e8-9eaa-94dfce2d69d4.JPG)
